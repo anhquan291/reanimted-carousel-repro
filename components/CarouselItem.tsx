@@ -1,16 +1,30 @@
 // React Native imports
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet } from "react-native";
 // Type imports
 import { sliderImage } from "../types";
-import { CarouselRenderItem, CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
+import { CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
+// Components imports
+import Animated, { Extrapolate, interpolate, useAnimatedStyle } from "react-native-reanimated";
 
-const CarouselItem: CarouselRenderItem<sliderImage> = ({ animationValue, index, item }: CarouselRenderItemInfo<sliderImage>) => {
+interface CarouselItem extends CarouselRenderItemInfo<sliderImage> {
+    length: number;
+}
+
+const CarouselItem: React.FC<CarouselItem> = ({ animationValue, index, item, length }) => {
     const { imageUrl } = item;
+
+    const rStyles = useAnimatedStyle(() => {
+        const inputRange = [-1, 0, 1];
+        const scale = interpolate(animationValue.value, inputRange, [0.8, 1, 0.8], Extrapolate.CLAMP);
+        return {
+            transform: [{ scale: scale }],
+        };
+    }, []);
     return (
-        <View style={styles.container}>
+        <Animated.View style={[styles.container, rStyles]}>
             <Image source={{ uri: imageUrl }} style={styles.img} />
-        </View>
+        </Animated.View>
     );
 };
 
