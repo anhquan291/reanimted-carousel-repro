@@ -16,7 +16,7 @@ const Pagination: React.FC<Pagination> = ({ animationValue, length }) => {
             {Array(length)
                 .fill(0)
                 .map((_, index) => (
-                    <PaginationItem key={index} />
+                    <PaginationItem key={index} animationValue={animationValue} index={index} length={length} />
                 ))}
         </View>
     );
