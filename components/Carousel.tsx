@@ -1,5 +1,5 @@
 // React Native imports
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet } from "react-native";
 // Constants imports
 import dummyData from "../dummyData";
@@ -21,6 +21,9 @@ const SLIDER_HEIGHT = SCREEN_WIDTH * (8 / 12);
 const Carousel = () => {
     const animatedValue = useSharedValue<number>(0);
 
+    const renderItem: CarouselRenderItem<sliderImage> = useCallback((props: CarouselRenderItemInfo<sliderImage>) => {
+        return <CarouselItem {...props} length={data.length} />;
+    }, []);
     return (
         <>
             <ReanimatedCarousel
@@ -36,9 +39,5 @@ const Carousel = () => {
 };
 
 export default Carousel;
-
-const renderItem: CarouselRenderItem<sliderImage> = (props: CarouselRenderItemInfo<sliderImage>) => {
-    return <CarouselItem {...props} />;
-};
 
 const styles = StyleSheet.create({});
