@@ -1,13 +1,15 @@
 // React Native imports
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 // Type imports
+import { sliderImage } from "../types";
 import { CarouselRenderItem, CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
 
-const CarouselItem: CarouselRenderItem<number> = ({ animationValue, index, item }: CarouselRenderItemInfo<number>) => {
+const CarouselItem: CarouselRenderItem<sliderImage> = ({ animationValue, index, item }: CarouselRenderItemInfo<sliderImage>) => {
+    const { imageUrl } = item;
     return (
         <View style={styles.container}>
-            <Text>CarouselItem</Text>
+            <Image source={{ uri: imageUrl }} style={styles.img} />
         </View>
     );
 };
@@ -16,9 +18,10 @@ export default CarouselItem;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "red",
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+    },
+    img: {
+        width: "100%",
+        height: "100%",
     },
 });
