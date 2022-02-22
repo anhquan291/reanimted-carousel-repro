@@ -1,6 +1,6 @@
 // React Native imports
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 // Components imports
 import Animated from "react-native-reanimated";
 import PaginationItem from "./PaginationItem";
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "#bf121d",
         justifyContent: "center",
-        paddingVertical: 5,
+        paddingVertical: Platform.OS === "android" ? 3 : 5,
+        flexWrap: "wrap",
     },
 });
