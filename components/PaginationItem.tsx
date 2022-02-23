@@ -28,7 +28,7 @@ const PaginationItem: React.FC<PaginationItem> = ({ animationValue, index, lengt
         } else {
             const inputRange = [(length - index - 1) * SCREEN_WIDTH, (length - index) * SCREEN_WIDTH, (length - index + 1) * SCREEN_WIDTH];
             const scale = interpolate(animationValue.value, inputRange, [0.5, 1, 0.5], Extrapolate.CLAMP);
-            const opacity = interpolate(-animationValue.value, inputRange, [0.6, 1, 0.6], Extrapolate.CLAMP);
+            const opacity = interpolate(animationValue.value, inputRange, [0.6, 1, 0.6], Extrapolate.CLAMP);
             return {
                 transform: [{ scale: scale }],
                 opacity: opacity,
