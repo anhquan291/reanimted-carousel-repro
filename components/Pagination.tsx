@@ -8,15 +8,16 @@ import PaginationItem from "./PaginationItem";
 interface Pagination {
     length: number;
     animationValue: Animated.SharedValue<number>;
+    onItemPress: (index: number) => void;
 }
 
-const Pagination: React.FC<Pagination> = ({ animationValue, length }) => {
+const Pagination: React.FC<Pagination> = ({ animationValue, length, onItemPress }) => {
     return (
         <View style={styles.container}>
             {Array(length)
                 .fill(0)
                 .map((_, index) => (
-                    <PaginationItem key={index} animationValue={animationValue} index={index} length={length} />
+                    <PaginationItem key={index} animationValue={animationValue} index={index} length={length} onItemPress={onItemPress} />
                 ))}
         </View>
     );
