@@ -24,7 +24,7 @@ const Carousel = () => {
 
     const onItemPress = useCallback((index: number) => {
         const currentIndex = carouselRef.current.getCurrentIndex();
-        carouselRef.current.scrollTo({ count: index - currentIndex });
+        carouselRef.current.scrollTo({ count: index - currentIndex, animated: true });
     }, []);
 
     const renderItem: CarouselRenderItem<sliderImage> = useCallback((props: CarouselRenderItemInfo<sliderImage>) => {
@@ -39,6 +39,7 @@ const Carousel = () => {
                 height={SLIDER_HEIGHT}
                 ref={carouselRef}
                 onProgressChange={(offsetProgress) => (animatedValue.value = offsetProgress)}
+                windowSize={2}
             />
             <Pagination animationValue={animatedValue} length={data.length} onItemPress={onItemPress} />
         </>
