@@ -23,7 +23,8 @@ const Carousel = () => {
     const carouselRef = useRef<any>();
 
     const onItemPress = useCallback((index: number) => {
-        carouselRef.current.goToIndex(index, false);
+        const currentIndex = carouselRef.current.getCurrentIndex();
+        carouselRef.current.scrollTo({ count: index - currentIndex });
     }, []);
 
     const renderItem: CarouselRenderItem<sliderImage> = useCallback((props: CarouselRenderItemInfo<sliderImage>) => {
