@@ -1,5 +1,4 @@
 node_modules/
-/dummyData.ts
 .expo/
 dist/
 npm-debug.*
