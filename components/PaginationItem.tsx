@@ -1,6 +1,6 @@
 // React Native imports
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, Pressable, StyleSheet } from "react-native";
 // Components imports
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from "react-native-reanimated";
 // Costants imports
@@ -12,9 +12,10 @@ interface PaginationItem {
     length: number;
     index: number;
     animationValue: Animated.SharedValue<number>;
+    onItemPress: (index: number) => void;
 }
 
-const PaginationItem: React.FC<PaginationItem> = ({ animationValue, index, length }) => {
+const PaginationItem: React.FC<PaginationItem> = ({ animationValue, index, length, onItemPress }) => {
     const rStyles = useAnimatedStyle(() => {
         if (animationValue.value <= 0) {
             const inputRange = [(index - 1) * SCREEN_WIDTH, index * SCREEN_WIDTH, (index + 1) * SCREEN_WIDTH];
@@ -35,7 +36,11 @@ const PaginationItem: React.FC<PaginationItem> = ({ animationValue, index, lengt
         }
     }, []);
 
-    return <Animated.View style={[styles.container, rStyles]} />;
+    return (
+        <Pressable onPress={() => onItemPress(index)}>
+            <Animated.View style={[styles.container, rStyles]}></Animated.View>
+        </Pressable>
+    );
 };
 
 export default PaginationItem;
