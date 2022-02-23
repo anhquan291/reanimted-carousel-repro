@@ -1,6 +1,6 @@
 // React Native imports
-import React, { useCallback } from "react";
-import { StyleSheet } from "react-native";
+import React, { useCallback, useRef } from "react";
+import { Button, StyleSheet } from "react-native";
 // Constants imports
 import dummyData from "../dummyData";
 import { SCREEN_WIDTH } from "../consants";
@@ -20,6 +20,11 @@ const SLIDER_HEIGHT = SCREEN_WIDTH * (8 / 12);
 
 const Carousel = () => {
     const animatedValue = useSharedValue<number>(0);
+    const carouselRef = useRef<any>();
+
+    const onItemPress = useCallback((index: number) => {
+        carouselRef.current.goToIndex(index, false);
+    }, []);
 
     const renderItem: CarouselRenderItem<sliderImage> = useCallback((props: CarouselRenderItemInfo<sliderImage>) => {
         return <CarouselItem {...props} length={data.length} />;
@@ -31,9 +36,10 @@ const Carousel = () => {
                 renderItem={renderItem}
                 width={SLIDER_WIDTH}
                 height={SLIDER_HEIGHT}
+                ref={carouselRef}
                 onProgressChange={(offsetProgress) => (animatedValue.value = offsetProgress)}
             />
-            <Pagination animationValue={animatedValue} length={data.length} />
+            <Pagination animationValue={animatedValue} length={data.length} onItemPress={onItemPress} />
         </>
     );
 };
